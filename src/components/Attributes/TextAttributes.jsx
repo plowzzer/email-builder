@@ -26,6 +26,17 @@ const TextAttributes = () => {
     })
   }
 
+  const updateContent = (value) => {
+    dispatch({
+      type: 'UPDATE_BLOCK',
+      id: selectedBlockId,
+      payload: {
+        content: value,
+        ...blockDetail?.attributes
+      },
+    })
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div>

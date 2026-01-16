@@ -3,6 +3,30 @@ export const blocksToMjmlAst = (blocks) => ({
   attributes: {},
   children: [
     {
+      tagName: 'mj-head',
+      children: [
+        {
+          tagName: 'mj-attributes',
+          children: [
+            {
+              tagName: 'mj-all',
+              attributes: {
+                'font-family': 'Arial, sans-serif',
+              },
+            },
+            {
+              tagName: 'mj-text',
+              attributes: {
+                'font-size': '16px',
+                'padding': '0px',
+                'line-height': '24px',
+              },
+            }
+          ],
+        },
+      ],
+    },
+    {
       tagName: 'mj-body',
       attributes: {
         'background-color': '#ffffff',
