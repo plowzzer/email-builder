@@ -1,12 +1,15 @@
 import { useContext } from "react";
 
 import { EmailBuilderContext } from "@/contexts/emailContext";
+import { cn } from "@/lib/utils";
+import { Trash2 } from "lucide-react";
+import { Button } from "../ui/button";
 import AddButton from "./AddButton";
 
 
 
 const Edit = () => {
-  const { blocks, dispatch } = useContext(EmailBuilderContext);
+  const { ui, blocks, dispatch } = useContext(EmailBuilderContext);
 
   function moveBlock(from, to) {
     dispatch({
@@ -20,14 +23,6 @@ const Edit = () => {
     dispatch({
       type: 'REMOVE_BLOCK',
       id,
-    })
-  }
-
-  function updateBlock(id, payload) {
-    dispatch({
-      type: 'UPDATE_BLOCK',
-      id,
-      payload,
     })
   }
 
@@ -46,14 +41,52 @@ const Edit = () => {
         <p>Nenhum bloco adicionado.</p>
       )}
 
-      <ul>
+      <ul className="w-[600px] mx-auto">
         {blocks.map((block) => (
           <li
             key={block.id}
-            className="mb-4 p-4 border rounded"
             onClick={() => selectBlock(block.id, block.type)}
+            className={
+              cn(
+                'mb-4 p-4 border rounded relative',
+                block.id === ui?.selectedBlockId && 'border-blue-500'
+              )
+            }
           >
+            <div className={cn(
+              "absolute left-[-30px] h-full flex-col justify-center gap-2 hidden",
+              block.id === ui?.selectedBlockId && "flex"
+            )}>
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={(e) => {
+                  removeBlock(block.id);
+                }}
+              >
+                <Trash2 />
+              </Button>
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={(e) => {
+                  moveBlock(blocks.indexOf(block), Math.max(0, blocks.indexOf(block) - 1));
+                }}
+              >
+                ↑
+              </Button>
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={(e) => {
+                  moveBlock(blocks.indexOf(block), Math.min(blocks.length - 1, blocks.indexOf(block) + 1));
+                }}
+              >
+                ↓
+              </Button>
+            </div>
             <pre>{JSON.stringify(block, null, 2)}</pre>
+
           </li>
         ))}
       </ul>
