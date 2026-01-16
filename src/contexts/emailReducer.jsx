@@ -27,6 +27,10 @@ const emailBuilderReducer = (state, action) => {
       return {
         ...state,
         blocks: state.blocks.filter(b => b.id !== action.id),
+        ui: {
+          selectedBlockType: null,
+          selectedBlockId: null,
+        }
       }
 
     case 'REORDER_BLOCKS': {
@@ -35,6 +39,12 @@ const emailBuilderReducer = (state, action) => {
       blocks.splice(action.to, 0, moved)
       return { ...state, blocks }
     }
+
+    case 'RENDER_SUCCESS':
+      return {
+        ...state,
+        html: action.html,
+      }
 
     default:
       return state

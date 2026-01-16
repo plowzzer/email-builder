@@ -8,7 +8,7 @@ import { ViewContext } from "@/contexts/viewContext";
 import Layout from "@/Template/layout";
 
 export default function Home() {
-  const { viewSelected, mainSelected } = useContext(ViewContext)
+  const { mainSelected } = useContext(ViewContext)
 
   return (
     <Layout>
@@ -16,10 +16,6 @@ export default function Home() {
       {mainSelected === 'preview' && (<Preview />)}
       {mainSelected === 'code' && (<Code />)}
       {mainSelected === 'json' && (<Json />)}
-
-      <h1>{`${mainSelected}`}</h1>
-      <h1>{`${viewSelected}`}</h1>
-
     </Layout>
   );
 }

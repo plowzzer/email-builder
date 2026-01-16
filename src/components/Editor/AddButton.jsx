@@ -15,6 +15,7 @@ const AddButton = () => {
         block: {
           id: crypto.randomUUID(),
           type: 'text',
+          attributes: {},
           content: 'Novo texto',
         },
       })
@@ -26,8 +27,10 @@ const AddButton = () => {
         block: {
           id: crypto.randomUUID(),
           type: 'image',
-          src: 'https://via.placeholder.com/600x300',
-          alt: '',
+          attributes: {
+            src: 'https://placehold.co/600x400',
+            alt: '',
+          },
         },
       })
     },
@@ -38,19 +41,21 @@ const AddButton = () => {
         block: {
           id: crypto.randomUUID(),
           type: 'button',
-          label: 'Clique aqui',
-          href: '#',
+          attributes: {
+            label: 'Clique aqui',
+            href: '#',
+          }
         },
       })
     }
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="mt-4 flex justify-center">
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="icon" aria-label="Add">
-            <Plus />
+          <Button variant="outline" size="icon" aria-label="Add" className="bg-blue-600">
+            <Plus className="text-white" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-80">

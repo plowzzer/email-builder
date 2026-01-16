@@ -18,20 +18,24 @@ const TextAttributes = () => {
       type: 'UPDATE_BLOCK',
       id: selectedBlockId,
       payload: {
-        [attribute]: value,
+        attributes: {
+          ...blockDetail?.attributes,
+          [attribute]: value,
+        }
       },
     })
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <pre>{JSON.stringify(blockDetail, null, 2)}</pre>
       <div>
-        <p>Conteúdo</p>
+        <p className="font-semibold mb-1">Conteúdo</p>
         <Textarea
           rows={5}
           value={blockDetail?.content}
-          onChange={(e) => updateAttribute('content', e.target.value)} />
+          onChange={(e) => updateContent(e.target.value)}
+          className="bg-white"
+        />
       </div>
 
       <div>
@@ -39,7 +43,7 @@ const TextAttributes = () => {
         <ButtonGroup>
           <Button
             variant="outline"
-            selected={blockDetail?.align === 'left'}
+            selected={blockDetail?.attributes?.align === 'left'}
             size="icon"
             onClick={() => updateAttribute('align', 'left')}
           >
@@ -47,7 +51,7 @@ const TextAttributes = () => {
           </Button>
           <Button
             variant="outline"
-            selected={blockDetail?.align === 'center'}
+            selected={blockDetail?.attributes?.align === 'center'}
             size="icon"
             onClick={() => updateAttribute('align', 'center')}
           >
@@ -55,7 +59,7 @@ const TextAttributes = () => {
           </Button>
           <Button
             variant="outline"
-            selected={blockDetail?.align === 'right'}
+            selected={blockDetail?.attributes?.align === 'right'}
             size="icon"
             onClick={() => updateAttribute('align', 'right')}
           >
@@ -63,7 +67,7 @@ const TextAttributes = () => {
           </Button>
           <Button
             variant="outline"
-            selected={blockDetail?.align === 'justify'}
+            selected={blockDetail?.attributes?.align === 'justify'}
             size="icon"
             onClick={() => updateAttribute('align', 'justify')}
           >
@@ -75,8 +79,8 @@ const TextAttributes = () => {
       <div>
         <p>Cor do texto</p>
         <div className="flex gap-2 items-center">
-          <Input type="color" className="w-[60px]" value={blockDetail?.color} onChange={(e) => updateAttribute('color', e.target.value)} />
-          <Input type="text" value={blockDetail?.color} onChange={(e) => updateAttribute('color', e.target.value)} />
+          <Input type="color" className="w-[60px]" value={blockDetail?.attributes?.color} onChange={(e) => updateAttribute('color', e.target.value)} />
+          <Input type="text" value={blockDetail?.attributes?.color} onChange={(e) => updateAttribute('color', e.target.value)} />
         </div>
       </div>
 
@@ -86,8 +90,8 @@ const TextAttributes = () => {
           <InputGroupInput
             placeholder="16"
             type="number"
-            value={`${blockDetail?.fontSize?.replace('px', '') || 16}`}
-            onChange={(e) => updateAttribute('fontSize', `${e.target.value}px`)}
+            value={`${blockDetail?.attributes?.['font-size']?.replace('px', '') || 16}`}
+            onChange={(e) => updateAttribute('font-size', `${e.target.value}px`)}
           />
           <InputGroupAddon align="inline-end">
             <span>px</span>
